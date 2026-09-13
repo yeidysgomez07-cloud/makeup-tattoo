@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamShop</title>
+  <link rel="stylesheet" href="styles_2.css">
+</head>
+<body>
+  <div class="form-container">
+    <img src="Copilot_20260830_095025.png" alt="Banner DreamShop" class="banner">
+  
+  <form id="pedidoForm">
+    <input type="text" name="trap" style="display:none">
+    <input type="hidden" id="producto" name="producto" value="Makeup tattoo">
+    <header>
+      <h1 class="detalles-pedido">DreamShop</h1>
+      <p><strong>Tu tienda online de moda y estilo</strong></p>
+    </header>
+
+    <section>
+      <h2 class="detalles-pedido">Pedido de Producto DreamShop</h2>
+      <p>Completa este formulario para realizar tu pedido. Recibirás confirmación por correo o WhatsApp una vez procesado ✨</p>
+    </section>
+
+    <section>
+      <h3 class="detalles-pedido">Detalles del Pedido</h3>
+      <h3>Makeup tattoo</h3>
+      <img id= imagen-producto src="IMG-20260830-WA0034.jpg" alt="Makeup tattoo">
+    </section>
+
+    <label><strong><em>Ingrese su nombre (opcional)</em></strong></label>
+    <input type="text" id="nombre" placeholder="DreamShop">
+
+    <label><strong><em>Inserte su número de teléfono *</em></strong></label>
+    <input type="tel" id="telefono" placeholder="+53 5 5555555" required>
+
+    <label><strong><em>Inserte su correo electrónico *</em></strong></label>
+    <input type="email" id="correo" placeholder="DreamShop@gmail.com" required>
+
+    <label><strong><em>Escoja color</em></strong></label>
+    <div class="options">
+    <label><input type="radio" name="color" value="Negro" onclick="cambiarImagen(this.value)"> Negro</label><br> 
+      <label><input type="radio" name="color" value="A Color" onclick="cambiarImagen(this.value)"> A Color</label><br> 
+    </div>
+
+    <label><strong><em>¿Desea servicio de mensajería?</em></strong></label>
+    <p> <em>Batabanó - $150<br>
+        Surgidero de Batabanó - $250<br>
+        Saya - $400<br>
+        Pozo Redondo - $300<br>
+        Pedroso - $200<br>
+        Camacho - $400<br>
+        Sopapo - $400<br>
+        La Julia - $500<br>
+        San Antonio de los Baños - $750</em></p>
+    <div class="options">
+      <label><input type="radio" name="mensajeria" value="Sí"> Sí</label>
+      <label><input type="radio" name="mensajeria" value="No"> No</label>
+    </div>
+
+    <label><em><strong>Dirección de entrega?</em></strong></label>
+    <textarea id="direccion"></textarea>
+
+    <label><em><strong>¿Tienes alguna preferencia adicional??</em></strong></label>
+    <textarea id="preferencias"></textarea>
+
+    <label><strong>¡¡¡Califica nuestro servicio!!!</strong></label>
+    <div class="rating">
+      <input type="radio" id="star5" name="rating" value="⭐⭐⭐⭐⭐"><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="⭐⭐⭐⭐"><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="⭐⭐⭐"><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="⭐⭐"><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="⭐"><label for="star1">★</label>
+    </div>
+
+    <label><em><strong>Comenta qué tal fue tu experiencia</em></strong></label>
+    <textarea id="comentario"></textarea>
+
+    <button type="submit">Enviar pedido ahora por WhatsApp</button>
+  </form>
+
+  <script>
+  let ultimoEnvio = 0;
+
+document.getElementById("pedidoForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  
+  const ahora = Date.now();
+  if (ahora - ultimoEnvio < 5000) {
+    alert("Por favor espera unos segundos antes de enviar nuevamente.");
+    return;
+  }
+  ultimoEnvio = ahora;
+
+  const trap = document.querySelector('input[name="trap"]').value;
+  if (trap) {
+    alert("Bot detectado. Envío bloqueado.");
+    return;
+  }
+    document.getElementById("pedidoForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const telefono = document.getElementById("telefono").value;
+      const correo = document.getElementById("correo").value;
+      const talla = document.querySelector('input[name="talla"]:checked')?.value || "";
+      const color = document.querySelector('input[name="color"]:checked')?.value || "";
+      const mensajeria = document.querySelector('input[name="mensajeria"]:checked')?.value || "";
+      const direccion = document.getElementById("direccion").value;
+      const preferencias = document.getElementById("preferencias").value;
+      const rating = document.querySelector('input[name="rating"]:checked')?.value || "";
+      const comentario = document.getElementById("comentario").value;
+
+      const mensaje = `*Hola, DreamShop!:*\n*Nombre:* ${nombre}\n*Teléfono:* ${telefono}\n*Correo:* ${correo}\n*Color:* ${color}\n*Mensajería:* ${mensajeria}\n*Dirección:* ${direccion}\n*Preferencias:* ${preferencias}\n*Calificación:* ${rating}\n*Comentario:* ${comentario}`;
+      
+      const url = `https://wa.me/5359734677?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank");
+  fetch("https://script.google.com/macros/s/AKfyc.../exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(res => res.text())
+  .then(msg => alert(msg))
+  .catch(err => alert("Error al enviar: " + err));
+});
+    });
+  function cambiarImagen(color) {
+      const img = document.getElementById("imagen-producto");
+
+      if (color === "Negro") {
+        img.src = "IMG-20260830-WA0034.jpg";
+      } else if (color === "A Color") {
+        img.src = "IMG-20260830-WA0041.jpg";
+      } else {
+        img.src = "IMG-20260830-WA0034.jpg";
+      }
+    }  
+  </script>
+</body>
+</html>
